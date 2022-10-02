@@ -20,7 +20,7 @@ var (
 		"http://127.0.0.1:5003",
 		"http://127.0.0.1:5004",
 	}
-
+	nextIndex = 0
 	lastServerIndex = 0
 )
 
@@ -28,6 +28,7 @@ func forwardRequest(res http.ResponseWriter, req *http.Request) {
 	// fmt.Fprintln(res, "Hello from Load-Balancer")
 	url := getServer()
 	rproxy := httputil.NewSingleHostReverseProxy(url)
+	log.Printf("Routing the request to the URL: %s", url.String())
 	rproxy.ServeHTTP(res, req)
 }
 
