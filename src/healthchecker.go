@@ -2,7 +2,6 @@ package main
 
 import (
 	"time"
-
 	"github.com/go-co-op/gocron"
 )
 
@@ -18,5 +17,5 @@ func startHealthCheck() {
 }
 
 func checkHealth() {
-	
+
 }
