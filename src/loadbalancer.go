@@ -2,9 +2,7 @@ package main
 
 import (
 	"log"
-	"net/url"
 	"net/http"
-	"net/http/httputil"
 )
 
 func main() {
@@ -13,31 +11,25 @@ func main() {
 }
 
 var (
-	serverList = []*httputil.ReverseProxy{
-		createHost("http://127.0.0.1:5001"),
-		createHost("http://127.0.0.1:5002"),
-		createHost("http://127.0.0.1:5003"),
-		createHost("http://127.0.0.1:5004"),
-		createHost("http://127.0.0.1:5005"),
+	serverList = []*server{
+		newServer("http://127.0.0.1:5001"),
+		newServer("http://127.0.0.1:5002"),
+		newServer("http://127.0.0.1:5003"),
+		newServer("http://127.0.0.1:5004"),
+		newServer("http://127.0.0.1:5005"),
 	}
 	lastServerIndex = 0
+	nextIndex = 0
 )
 
 func forwardRequest(res http.ResponseWriter, req *http.Request) {
-	// fmt.Fprintln(res, "Hello from Load-Balancer")
 	server := getServer()
-	server.ServeHTTP(res, req)
+	server.ReverseProxy.ServeHTTP(res, req)
 }
 
-func getServer() *httputil.ReverseProxy {
-	nextIndex := (lastServerIndex + 1) % len(serverList)
+func getServer() *server {
 	server := serverList[nextIndex]
+	nextIndex = (lastServerIndex + 1) % len(serverList)
 	lastServerIndex = nextIndex
 	return server
-}
-
-func createHost(urlStr string) *httputil.ReverseProxy {
-	url, _ := url.Parse(urlStr)
-	log.Printf("Creating Reverse Proxy for the URL: %s", url.String())
-	return httputil.NewSingleHostReverseProxy(url)
 }

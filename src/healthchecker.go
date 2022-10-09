@@ -1,21 +1,21 @@
 package main
 
-import (
-	"time"
-	"github.com/go-co-op/gocron"
-)
+// import (
+// 	"time"
+// 	"github.com/go-co-op/gocron"
+// )
 
-func startHealthCheck() {
-	s := gocron.NewScheduler(time.Local)
+// func startHealthCheck() {
+// 	s := gocron.NewScheduler(time.Local)
 
-	for _, server := range serverList {
+// 	for _, server := range serverList {
 
-		s.Every(2).Second().Do(func() {
+// 		s.Every(2).Second().Do(func() {
 
-		})
-	}
-}
+// 		})
+// 	}
+// }
 
-func checkHealth() {
+// func checkHealth() {
 
-}
+// }
