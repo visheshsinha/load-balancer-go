@@ -14,11 +14,11 @@ func main() {
 
 var (
 	serverList = []*httputil.ReverseProxy{
-		createHost("http://127.0.0.1:5000"),
 		createHost("http://127.0.0.1:5001"),
 		createHost("http://127.0.0.1:5002"),
 		createHost("http://127.0.0.1:5003"),
 		createHost("http://127.0.0.1:5004"),
+		createHost("http://127.0.0.1:5005"),
 	}
 	lastServerIndex = 0
 )
