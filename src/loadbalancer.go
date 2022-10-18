@@ -28,8 +28,12 @@ func forwardRequest(res http.ResponseWriter, req *http.Request) {
 }
 
 func getServer() *server {
-	server := serverList[nextIndex]
+	server := serverList[getNextIndex()]
+	return server
+}
+
+func getNextIndex() int {
 	nextIndex = (lastServerIndex + 1) % len(serverList)
 	lastServerIndex = nextIndex
-	return server
+	return nextIndex
 }
